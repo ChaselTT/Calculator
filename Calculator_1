@@ -1,0 +1,4 @@
+expstring = str(input('Input your expression: '))
+print(expstring)
+explist = list(expstring)
+print(explist)

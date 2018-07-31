@@ -1,0 +1,13 @@
+def add(a, b):
+    return a+b
+
+choice = input('Enter 1: ')
+
+if choice == 1:
+    num1 = int(input('First Number is :'))
+    num2 = int(input('Second Number is :'))
+    print(str(num1) + "+" + str(num2) + "=" + str(add(num1, num2)))
+
+else:
+    print('error')
+
