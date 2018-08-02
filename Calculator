@@ -5,14 +5,28 @@ a = []
 b = []
 
 for item in expstring:
-    if(item != '+'):
+    if(item != '+' && '-' && '*' && '/'):
         str += item
     else:
-        
-        a.append(int(str))
-        b.append('+')
+        if(item == '+' || item = '-'))
+            while(true):
+                if(b.peek() == '+' || b.peek() == '-')
+                    b.append('item')
+                    a.append(int(str))
+                    print(a, b)
+                    break
+                else
+                    f = print(a.pop(), a.pop(), b.pop())
+                    c = f
+                    a.append(c)
+
+        elif(item == '*' || item == '/')
+            b.append('item')
+            a.append(int(str)
+
         str = ""
         print(a)
 
-a.append(int(str))
-print(a)
+while(a not none):
+    str = a.append(a.pop(), int(str), b.pop())
+    print(str)
