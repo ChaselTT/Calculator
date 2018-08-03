@@ -6,20 +6,20 @@ def peek(self):
         return self[-1]
 
 def SimpleCalculate(firstnumstr, symbol, secondnumstr):
-    firtstnum = int(firstnumstr)
-    secondnum = int(secondnumstr)
+    firstnum = float(firstnumstr)
+    secondnum = float(secondnumstr)
     if(symbol == '+'):
-        return (firtnum + secondnum)
+        return (firstnum + secondnum)
     elif(symbol == '-'):
-        return (firtnum + secondnum)
+        return (firstnum - secondnum)
     elif(symbol == '*'):
-        return (firtnum * secondnum)
+        return (firstnum * secondnum)
     elif(symbol == '/'):
-        return (secondnum / firstnum)
+        return (firstnum / secondnum)
     else:
         print('SimpleCalculate_error')
 
-expstring = raw_input('Input your expression: ')
+expstring = input('Input your expression: ')
 print(expstring)
 str = ""
 a = []
@@ -33,29 +33,41 @@ for item in expstring:
             while(True):
                 if(peek(b) == '+' or peek(b) == '-'):
                     b.append(item)
-                    print(b)
-                    a.append(int(str))
+                    a.append(float(str))
+                    str = ""
                     print(a)
+                    print(b)
+                    print('(1)')
                     break
                 elif(isEmpty(b) and isEmpty(a)):
                     b.append(item)
-                    print(str(b) + 'empty')
-                    a.append(int(str))
-                    print(str(b) + 'empty')
+                    a.append(float(str))
+                    str = ""
+                    print(a)
+                    print(b)
+                    print('(2)')
+                    break
                 else:
-                    calnum = SimpleCalculate(a.pop(), b.pop(), a.pop())
-                    print(calnum)
-                    a.append(calnum)
+                    p = a.pop()
+                    q = b.pop()
+                    print(p, q, str)
+                    str = SimpleCalculate(p, q, str)
+                    print(str)
+                    print('(3)')
 
         elif(item == '*' or item == '/'):
             b.append(item)
-            print(b)
-            a.append(int(str))
+            a.append(float(str))
             print(a)
-    
-        str = ""
-        print(a)
+            print(b)
+            print('(4)')
+            str = ""
 
-while(isEmpty(a)):
-    str = a.append(a.pop(), int(str), b.pop())
+        print('(5)')
+
+while(len(b) or len(a)):
+    x, y = a.pop(), b.pop()
+    print(x, y, str)
+    str = SimpleCalculate(x, y, str)
     print(str)
+    print('(6)')
