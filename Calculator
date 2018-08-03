@@ -1,3 +1,10 @@
+def isEmpty(self):
+    return len(self) == 0
+
+def peek(self):
+    if not isEmpty(self):
+        return self[-1]
+
 def SimpleCalculate(firstnumstr, symbol, secondnumstr):
     firtstnum = int(firstnumstr)
     secondnum = int(secondnumstr)
@@ -24,26 +31,31 @@ for item in expstring:
     else:
         if(item == '+' or item == '-'):
             while(True):
-                if(b.peek() == '+' or b.peek() == '-'):
-                    b.append('item')
+                if(peek(b) == '+' or peek(b) == '-'):
+                    b.append(item)
                     print(b)
                     a.append(int(str))
                     print(a)
                     break
+                elif(isEmpty(b) and isEmpty(a)):
+                    b.append(item)
+                    print(str(b) + 'empty')
+                    a.append(int(str))
+                    print(str(b) + 'empty')
                 else:
                     calnum = SimpleCalculate(a.pop(), b.pop(), a.pop())
                     print(calnum)
                     a.append(calnum)
 
         elif(item == '*' or item == '/'):
-            b.append('item')
+            b.append(item)
             print(b)
             a.append(int(str))
             print(a)
-
+    
         str = ""
         print(a)
 
-while(a is not None):
+while(isEmpty(a)):
     str = a.append(a.pop(), int(str), b.pop())
     print(str)
