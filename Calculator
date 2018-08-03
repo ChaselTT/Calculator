@@ -1,32 +1,49 @@
-expstring = input('Input your expression: ')
+def SimpleCalculate(firstnumstr, symbol, secondnumstr):
+    firtstnum = int(firstnumstr)
+    secondnum = int(secondnumstr)
+    if(symbol == '+'):
+        return (firtnum + secondnum)
+    elif(symbol == '-'):
+        return (firtnum + secondnum)
+    elif(symbol == '*'):
+        return (firtnum * secondnum)
+    elif(symbol == '/'):
+        return (secondnum / firstnum)
+    else:
+        print('SimpleCalculate_error')
+
+expstring = raw_input('Input your expression: ')
 print(expstring)
 str = ""
 a = []
 b = []
 
 for item in expstring:
-    if(item != '+' && '-' && '*' && '/'):
+    if(item != '+' and item != '-' and item != '*' and item != '/'):
         str += item
     else:
-        if(item == '+' || item = '-'))
-            while(true):
-                if(b.peek() == '+' || b.peek() == '-')
+        if(item == '+' or item == '-'):
+            while(True):
+                if(b.peek() == '+' or b.peek() == '-'):
                     b.append('item')
+                    print(b)
                     a.append(int(str))
-                    print(a, b)
+                    print(a)
                     break
-                else
-                    f = print(a.pop(), a.pop(), b.pop())
-                    c = f
-                    a.append(c)
+                else:
+                    calnum = SimpleCalculate(a.pop(), b.pop(), a.pop())
+                    print(calnum)
+                    a.append(calnum)
 
-        elif(item == '*' || item == '/')
+        elif(item == '*' or item == '/'):
             b.append('item')
-            a.append(int(str)
+            print(b)
+            a.append(int(str))
+            print(a)
 
         str = ""
         print(a)
 
-while(a not none):
+while(a is not None):
     str = a.append(a.pop(), int(str), b.pop())
     print(str)
