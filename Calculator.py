@@ -1,73 +1,107 @@
-def isEmpty(self):
-    return len(self) == 0
+#!/usr/bin/python
 
-def peek(self):
-    if not isEmpty(self):
-        return self[-1]
+import sys
 
-def SimpleCalculate(firstnumstr, symbol, secondnumstr):
-    firstnum = float(firstnumstr)
-    secondnum = float(secondnumstr)
-    if(symbol == '+'):
-        return (firstnum + secondnum)
-    elif(symbol == '-'):
-        return (firstnum - secondnum)
-    elif(symbol == '*'):
-        return (firstnum * secondnum)
-    elif(symbol == '/'):
-        return (firstnum / secondnum)
-    else:
-        print('SimpleCalculate_error')
 
-expstring = input('Input your expression: ')
-print(expstring)
-str = ""
-a = []
-b = []
+operators = {
+    "+": {
+        "prio": 0,
+        "calc": lambda num1, num2: num1 + num2,
+    },
+    "-": {
+        "prio": 0,
+        "calc": lambda num1, num2: num1 - num2,
+    },
+    "*": {
+        "prio": 1,
+        "calc": lambda num1, num2: num1 * num2,
+    },
+    "/": {
+        "prio": 1,
+        "calc": lambda num1, num2: num1 / num2,
+    },
+}
 
-for item in expstring:
-    if(item != '+' and item != '-' and item != '*' and item != '/'):
-        str += item
-    else:
-        if(item == '+' or item == '-'):
-            while(True):
-                if(peek(b) == '+' or peek(b) == '-'):
-                    b.append(item)
-                    a.append(float(str))
-                    str = ""
-                    print(a)
-                    print(b)
-                    print('(1)')
-                    break
-                elif(isEmpty(b) and isEmpty(a)):
-                    b.append(item)
-                    a.append(float(str))
-                    str = ""
-                    print(a)
-                    print(b)
-                    print('(2)')
-                    break
-                else:
-                    p = a.pop()
-                    q = b.pop()
-                    print(p, q, str)
-                    str = SimpleCalculate(p, q, str)
-                    print(str)
-                    print('(3)')
 
-        elif(item == '*' or item == '/'):
-            b.append(item)
-            a.append(float(str))
-            print(a)
-            print(b)
-            print('(4)')
-            str = ""
+def calc(num1, op, num2):
+    c = operators[op]["calc"]
+    return c(num2, num1)
 
-        print('(5)')
 
-while(len(b) or len(a)):
-    x, y = a.pop(), b.pop()
-    print(x, y, str)
-    str = SimpleCalculate(x, y, str)
-    print(str)
-    print('(6)')
+def is_num(s):
+    return s not in operators.keys()
+
+
+def is_op(s):
+    return s in operators.keys()
+
+
+def read(chars, check):
+    if len(chars) <= 0:
+        return ""
+
+    s = ""
+    c = chars[-1]
+    while check(c):
+        chars.pop()
+        s += c
+        if len(chars) <= 0:
+            break
+        c = chars[-1]
+
+    return s
+
+
+def read_num(chars):
+    num = read(chars, is_num)
+    if len(num) <= 0:
+        print("num is empty")
+        sys.exit(1)
+    return float(num)
+
+
+def read_op(chars):
+    op = read(chars, is_op)
+    return op
+
+
+def main():
+    expstring = input('Input your expression: ')
+    chars = list(expstring)
+    chars.reverse()
+
+    nums = []
+    ops = []
+
+    nums.append(read_num(chars))
+
+    while True:
+        op = read_op(chars)
+        if len(op) <= 0:
+            break
+        prio = operators[op]["prio"]
+
+        if len(ops) <= 0:
+            ops.append(op)
+        else:
+            lastOp = ops[-1]
+            while len(ops) > 0 and operators[lastOp]["prio"] >= prio:
+                lastOp = ops.pop()
+                num1 = nums.pop()
+                num2 = nums.pop()
+                result = calc(num1, lastOp, num2)
+                nums.append(result)
+            ops.append(op)
+
+        nums.append(read_num(chars))
+
+    while len(ops) > 0 and len(nums) > 0:
+        op, num1, num2 = ops.pop(), nums.pop(), nums.pop()
+        result = calc(num1, op, num2)
+        nums.append(result)
+
+    print("Result:", nums.pop())
+
+
+if __name__ == '__main__':
+    main()
